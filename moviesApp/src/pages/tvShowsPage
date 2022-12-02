@@ -7,9 +7,8 @@ import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import { getShows } from "../api/tmdb-api";
 import PlaylistAddIcon from '../components/cardIcons/addToWatchlist'
 
-const tvShowsPage = (props) => {
+const TvShowsPage = (props) => {
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const {  data, error, isLoading, isError }  = useQuery('shows', getShows)
 
   if (isLoading) {
@@ -19,22 +18,21 @@ const tvShowsPage = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>
   }  
-  const shows = data.results;
+  const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
-  const watchlist = shows.filter(m => m.watchlist)
+  const watchlist = movies.filter(m => m.watchlist)
   localStorage.setItem('watchlist', JSON.stringify(watchlist))
   const addToWatchlist = (showID) => true 
 
   return (
     <PageTemplate
-      title="Upcoming shows"
-      shows={shows}
-      action={(show) => {
-        return <PlaylistAddIcon show={show} />
+      title="Disover Tv Shows"
+      movies={movies}
+      action={(movie) => {
+        return <PlaylistAddIcon movie={movie} />
       }}
     />
 );
 };
-
-export default tvShowsPage;
+export default TvShowsPage;
