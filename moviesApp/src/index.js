@@ -11,6 +11,7 @@ import UpcomingMoviesPage from "./pages/upcomingMoviesPage"; // NEW
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools'
 import MoviesContextProvider from "./contexts/moviesContext";
+import ShowsContextProvider from "./contexts/showsContexts";
 import TvShowsPage from "./pages/tvShowsPage";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import PopularMoviesPage from "./pages/popularMoviesPage";
@@ -40,11 +41,17 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={ <Navigate to="/" /> } />
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
-        <Route path="/movies/tvShows" element={<TvShowsPage />} />
         <Route path="/movies/popularMovies" element={<PopularMoviesPage />} />
-       
+        
+        
         </Routes>
         </MoviesContextProvider>
+       
+        <ShowsContextProvider>
+            <Routes>
+            <Route path="/shows/tvShows" element={<TvShowsPage />} />
+        </Routes>
+        </ShowsContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

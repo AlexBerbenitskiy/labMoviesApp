@@ -1,18 +1,16 @@
 import React from "react";
-import { getShow } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import { getShows } from "../api/tmdb-api";
+import PageTemplate from '../showComponents/templateShowListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-import { getShows } from "../api/tmdb-api";
 import PlaylistAddIcon from '../components/cardIcons/addToWatchlist'
-import { getMovies } from "../api/tmdb-api";
-import { getUpcoming } from "../api/tmdb-api";
-import { getPopularMovies } from "../api/tmdb-api";
+
+
 
 const TvShowsPage = (props) => {
 
-  const {  data, error, isLoading, isError }  = useQuery('shows', getPopularMovies)
+  const {  data, error, isLoading, isError }  = useQuery('shows', getShows)
 
   if (isLoading) {
     return <Spinner />
@@ -23,19 +21,19 @@ const TvShowsPage = (props) => {
   }  
 
   
-  const movies = data.results;
+  const shows = data.results;
 
   // Redundant, but necessary to avoid app crashing.
-  const watchlist = movies.filter(m => m.watchlist1)
+  const watchlist = shows.filter(m => m.watchlist1)
   localStorage.setItem('watchlist', JSON.stringify(watchlist))
   const addToWatchlist = (showID) => true 
 
   return (
     <PageTemplate
       title="Disover Tv Shows"
-      movies={movies}
-      action={(movie) => {
-        return <AddToFavouritesIcon movie={movie} />
+      shows={shows}
+      action={(show) => {
+        return <AddToFavouritesIcon show={show} />
       }}
     />
 );
