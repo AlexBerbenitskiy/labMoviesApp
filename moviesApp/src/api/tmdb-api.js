@@ -68,7 +68,6 @@ export const getPopularPeople = () => {
   });
 };
 
-  
 
 export const getMovie = (args) => {
   // console.log(args)
@@ -88,7 +87,6 @@ export const getMovie = (args) => {
 };
   
 
-  
 
   export const getUpcoming = () => {
     return fetch(
