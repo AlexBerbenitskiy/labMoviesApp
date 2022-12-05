@@ -10,11 +10,11 @@ function ShowListPageTemplate({ shows, title, action }) {
   const genreId = Number(genreFilter);
 
   let displayedShows = shows
-    .filter((m) => {
-      return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
+    .filter((s) => {
+      return s.name.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
     })
-    .filter((m) => {
-      return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    .filter((s) => {
+      return genreId > 0 ? s.genre_ids.includes(genreId) : true;
     });
 
   const handleChange = (type, value) => {

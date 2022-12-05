@@ -109,7 +109,7 @@ export const getMovie = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/tv/{tv_id}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+      `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -122,18 +122,18 @@ export const getMovie = (args) => {
   };
     
   
-  export const getShows = () => {
-    return fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-      ).then((response) => {
+  export const getShows = async () => {
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+      );
       if (!response.ok) {
         throw new Error(response.json().message);
       }
-      return response.json();
-    })
-    .catch((error) => {
-       throw error
-    });
+      return await response.json();
+    } catch (error) {
+      throw error;
+    }
   };
 
   export const getGenres = async () => {
@@ -185,11 +185,13 @@ export const getMovie = (args) => {
    });
   };
 
-  export const getPeopleImages = ({ queryKey }) => {
+  
+
+  export const getShowImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/person/${id}/images?api_key=<<api_key>>`
+      `https://api.themoviedb.org/3/tv/${id}/images?api_key=${process.env.REACT_APP_TMDB_KEY}`
     ).then( (response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -202,11 +204,12 @@ export const getMovie = (args) => {
    });
   };
 
-  export const getShowImages = ({ queryKey }) => {
+
+  export const getPeopleImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/tv/${id}/images?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US`
+      `https://api.themoviedb.org/3/person/${id}/images?api_key=<<api_key>>`
     ).then( (response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
