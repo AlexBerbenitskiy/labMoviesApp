@@ -19,11 +19,9 @@ import TopRatedMoviesPage from "./pages/topRatedMoviePage";
 import LatestMoviesPage from "./pages/latestMoviesPage";
 import ShowDetailsPage from "./pages/showDetailsPage";
 import FavouriteShowsPage from "./pages/favouriteShowsPage";
-import LoginPage from "./loginPage";
-import AuthProvider from "./authContext";
-import PrivateRoute from "./privateRoute";
+import SignUpPage from "./signUpPage";
 import AuthHeader from "./authHeader";
-
+import AuthProvider from "./authContext";
 
 
 const queryClient = new QueryClient({
@@ -41,6 +39,8 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <SiteHeader />
+        
+
         <AuthProvider>
           <AuthHeader />
         <MoviesContextProvider>
@@ -50,7 +50,6 @@ const App = () => {
         <Route exact path="/movies/favourites" element={<FavouriteMoviesPage />} />
         <Route exact path="/movies/upcoming" element={<UpcomingMoviesPage />} />
         <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/login" component={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={ <Navigate to="/" /> } />
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
@@ -60,14 +59,11 @@ const App = () => {
         <Route path="/shows/tvShows" element={<TvShowsPage />} />
         <Route path="/shows/tvShows/:id" element={<ShowDetailsPage />} />
         <Route path="/shows/tvShows/favourites" element={<FavouriteShowsPage />} />
-        
+        <Route path="/signup" component={<SignUpPage/>} />
         </Routes>
         </ShowsContextProvider>
         </MoviesContextProvider>
         </AuthProvider>
-       
-        
-       
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
